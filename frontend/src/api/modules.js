@@ -14,6 +14,7 @@ export const getCostTrend = (months = 12) => api.get('/cost/trend', { params: { 
 
 // 表级分析
 export const getTableInsightPage = (params) => api.get('/table-insight/page', { params })
+export const getTablePartitionInsightPage = (params) => api.get('/table-insight/partition/page', { params })
 export const getTableInsight = (id) => api.get(`/table-insight/${id}`)
 
 // 小文件治理

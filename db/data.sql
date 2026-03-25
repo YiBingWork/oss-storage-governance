@@ -59,3 +59,10 @@ INSERT INTO junk_data_record (bucket_id, object_key, size_bytes, reason, last_ac
 (1, 'dw/ods/user_action/dt=2023-01-01/', 120000000000, 'EXPIRED', '2023-06-01 00:00:00', 'PENDING'),
 (3, 'logs/app/2023/', 500000000000, 'NO_ACCESS', '2023-12-31 00:00:00', 'PENDING'),
 (1, 'dw/tmp/debug_output.csv', 2000000, 'TEMP_FILE', '2025-01-20 00:00:00', 'PENDING');
+
+-- 表分区级分析
+INSERT INTO table_partition_insight (bucket_id, table_prefix, partition_name, full_prefix, object_count, storage_bytes, avg_file_size_bytes, last_modified_time, owner) VALUES
+(1, 'dw/ods/user_action/', 'dt=2025-03-21', 'dw/ods/user_action/dt=2025-03-21/', 500000, 4294967296, 8589, '2025-03-21 10:00:00', '张三'),
+(1, 'dw/ods/user_action/', 'dt=2025-03-22', 'dw/ods/user_action/dt=2025-03-22/', 500, 42949672960, 85899345, '2025-03-22 10:00:00', '张三'),
+(1, 'dw/ods/user_action/', 'dt=2025-03-23', 'dw/ods/user_action/dt=2025-03-23/', 100, 21474836480, 214748364, '2025-03-23 10:00:00', '张三'),
+(1, 'dw/dwd/order_detail/', 'dt=2025-03-21', 'dw/dwd/order_detail/dt=2025-03-21/', 10000, 536870912000, 53687091, '2025-03-21 08:00:00', '李四');
