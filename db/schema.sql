@@ -97,3 +97,20 @@ CREATE TABLE IF NOT EXISTS junk_data_record (
     INDEX idx_bucket_status (bucket_id, status),
     INDEX idx_reason (reason)
 ) ENGINE=InnoDB COMMENT='无用数据记录表';
+
+-- 7. 表分区级分析表
+CREATE TABLE IF NOT EXISTS table_partition_insight (
+    id                  BIGINT AUTO_INCREMENT PRIMARY KEY,
+    bucket_id           BIGINT        NOT NULL,
+    table_prefix        VARCHAR(512)  NOT NULL COMMENT '表级前缀',
+    partition_name      VARCHAR(256)  NOT NULL COMMENT '分区路径',
+    full_prefix         VARCHAR(512)  NOT NULL COMMENT '完整路径',
+    object_count        BIGINT        NOT NULL DEFAULT 0,
+    storage_bytes       BIGINT        NOT NULL DEFAULT 0,
+    avg_file_size_bytes BIGINT        NOT NULL DEFAULT 0,
+    last_modified_time  DATETIME      DEFAULT NULL,
+    owner               VARCHAR(128)  DEFAULT NULL COMMENT '数据负责人',
+    create_time         DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_time         DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_bucket_full_prefix (bucket_id, full_prefix(191))
+) ENGINE=InnoDB COMMENT='表分区级分析表';
