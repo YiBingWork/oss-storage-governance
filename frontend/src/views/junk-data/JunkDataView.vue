@@ -26,7 +26,7 @@
       <el-table :data="records" stripe>
         <el-table-column prop="objectKey" label="对象 Key" min-width="300" show-overflow-tooltip />
         <el-table-column label="大小" width="120">
-          <template #default="{ row }">{{ formatBytes(row.sizeBytes) }}</template>
+          <template #default="{ row }"><span class="key-number">{{ formatBytes(row.sizeBytes) }}</span></template>
         </el-table-column>
         <el-table-column prop="reason" label="原因" width="100">
           <template #default="{ row }">

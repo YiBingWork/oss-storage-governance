@@ -20,10 +20,26 @@
       </template>
       <el-table :data="records" stripe>
         <el-table-column prop="month" label="月份" width="120" />
-        <el-table-column prop="storageCost" label="存储费用 (元)" />
-        <el-table-column prop="requestCost" label="请求费用 (元)" />
-        <el-table-column prop="trafficCost" label="流量费用 (元)" />
-        <el-table-column prop="totalCost" label="总费用 (元)" />
+        <el-table-column label="存储费用 (元)">
+          <template #default="{ row }">
+            <span class="key-number">{{ row.storageCost }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="请求费用 (元)">
+          <template #default="{ row }">
+            <span class="key-number">{{ row.requestCost }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="流量费用 (元)">
+          <template #default="{ row }">
+            <span class="key-number">{{ row.trafficCost }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="总费用 (元)">
+          <template #default="{ row }">
+            <span class="key-number" style="color: #F56C6C">{{ row.totalCost }}</span>
+          </template>
+        </el-table-column>
       </el-table>
       <el-pagination
         class="pagination"
@@ -77,9 +93,17 @@ const loadChart = async () => {
         yAxis: { type: 'value', name: '费用 (元)' },
         series: [{
           name: '总费用',
-          type: 'bar',
-          data: trendData.map((d) => d.total),
-          itemStyle: { color: '#409EFF' }
+          type: 'line',
+          smooth: true,
+          itemStyle: { color: '#3b82f6' },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#3b82f6' },
+              { offset: 1, color: '#2dd4bf' }
+            ]),
+            opacity: 0.5
+          },
+          data: trendData.map((d) => d.total)
         }]
       })
       window.addEventListener('resize', () => chart.resize())

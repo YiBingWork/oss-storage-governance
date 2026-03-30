@@ -44,13 +44,13 @@
         <el-table-column v-if="viewMode === 'partition'" prop="tablePrefix" label="表级前缀" min-width="200" />
         <el-table-column v-if="viewMode === 'partition'" prop="partitionName" label="分区路径" min-width="150" />
         <el-table-column prop="objectCount" label="对象数" width="120">
-          <template #default="{ row }">{{ row.objectCount?.toLocaleString() }}</template>
+          <template #default="{ row }"><span class="key-number">{{ row.objectCount?.toLocaleString() }}</span></template>
         </el-table-column>
         <el-table-column label="存储量" width="120">
-          <template #default="{ row }">{{ formatBytes(row.storageBytes) }}</template>
+          <template #default="{ row }"><span class="key-number">{{ formatBytes(row.storageBytes) }}</span></template>
         </el-table-column>
         <el-table-column label="平均文件大小" width="130">
-          <template #default="{ row }">{{ formatBytes(row.avgFileSizeBytes) }}</template>
+          <template #default="{ row }"><span class="key-number">{{ formatBytes(row.avgFileSizeBytes) }}</span></template>
         </el-table-column>
         <el-table-column label="小文件健康度" width="150">
           <template #default="{ row }">
