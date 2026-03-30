@@ -41,6 +41,12 @@ const routes = [
         name: 'JunkData',
         component: () => import('../views/junk-data/JunkDataView.vue'),
         meta: { title: '无用数据识别' }
+      },
+      {
+        path: 'audit-log',
+        name: 'AuditLog',
+        component: () => import('../views/audit-log/AuditLogView.vue'),
+        meta: { title: '日志查询' }
       }
     ]
   }

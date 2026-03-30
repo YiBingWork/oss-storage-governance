@@ -35,6 +35,15 @@
           <el-icon><Delete /></el-icon>
           <span>无用数据识别</span>
         </el-menu-item>
+
+        <el-sub-menu index="audit-log-module">
+          <template #title>
+            <el-icon><DocumentCopy /></el-icon>
+            <span>审计日志</span>
+          </template>
+          <el-menu-item index="/audit-log">日志查询</el-menu-item>
+          <el-menu-item index="/audit-log-analysis">日志分析</el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
 
@@ -52,7 +61,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { Monitor, Coin, Grid, Document, Timer, Delete } from '@element-plus/icons-vue'
+import { Monitor, Coin, Grid, Document, Timer, Delete, DocumentCopy } from '@element-plus/icons-vue'
 
 const route = useRoute()
 const activeMenu = computed(() => route.path)

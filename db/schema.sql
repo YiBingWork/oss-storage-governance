@@ -114,3 +114,24 @@ CREATE TABLE IF NOT EXISTS table_partition_insight (
     update_time         DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_bucket_full_prefix (bucket_id, full_prefix(191))
 ) ENGINE=InnoDB COMMENT='表分区级分析表';
+
+-- 8. 审计日志表
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id              BIGINT AUTO_INCREMENT PRIMARY KEY,
+    bucket_name     VARCHAR(128)  NOT NULL COMMENT 'Bucket 名称',
+    request_time    DATETIME      NOT NULL COMMENT '请求时间',
+    access_key_id   VARCHAR(128)  NOT NULL COMMENT '操作者 AccessKey ID',
+    source_ip       VARCHAR(64)   NOT NULL COMMENT '源 IP',
+    event_name      VARCHAR(64)   NOT NULL COMMENT '事件名称/操作类型',
+    object_key      VARCHAR(1024) DEFAULT NULL COMMENT 'OSS 对象 Key',
+    response_code   INT           NOT NULL COMMENT '响应代码',
+    latency_ms      INT           NOT NULL COMMENT '延迟 (ms)',
+    raw_log_json    TEXT          NOT NULL COMMENT '原始审计报文 JSON',
+    create_time     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_time     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_bucket_name (bucket_name),
+    INDEX idx_request_time (request_time),
+    INDEX idx_event_name (event_name),
+    INDEX idx_response_code (response_code),
+    INDEX idx_source_ip (source_ip)
+) ENGINE=InnoDB COMMENT='审计日志表';
