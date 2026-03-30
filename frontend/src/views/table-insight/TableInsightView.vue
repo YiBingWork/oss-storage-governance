@@ -68,7 +68,7 @@
         v-model:current-page="query.page"
         v-model:page-size="query.size"
         :total="total"
-        layout="total, prev, pager, next"
+        layout="total, prev, pager, next, jumper"
         @current-change="loadData"
       />
     </el-card>

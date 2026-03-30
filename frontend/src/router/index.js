@@ -47,6 +47,12 @@ const routes = [
         name: 'AuditLog',
         component: () => import('../views/audit-log/AuditLogView.vue'),
         meta: { title: '日志查询' }
+      },
+      {
+        path: 'audit-log-analysis',
+        name: 'AuditLogAnalysis',
+        component: () => import('../views/audit-log/AuditLogAnalysisView.vue'),
+        meta: { title: '日志分析' }
       }
     ]
   }
