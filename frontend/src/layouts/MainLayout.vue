@@ -7,8 +7,8 @@
       <el-menu
         :default-active="activeMenu"
         router
-        background-color="#304156"
-        text-color="#bfcbd9"
+        background-color="#1e293b"
+        text-color="#cbd5e1"
         active-text-color="#409EFF"
       >
         <el-menu-item index="/dashboard">
@@ -64,8 +64,9 @@ const currentTitle = computed(() => route.meta.title || 'OSS 存储治理')
   height: 100vh;
 }
 .aside {
-  background-color: #304156;
+  background-color: #1e293b;
   overflow: hidden;
+  box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
 }
 .logo {
   height: 60px;
@@ -92,7 +93,7 @@ const currentTitle = computed(() => route.meta.title || 'OSS 存储治理')
   color: #303133;
 }
 .main {
-  background: #f0f2f5;
-  padding: 20px;
+  background: #f8fafc;
+  padding: 24px;
 }
 </style>

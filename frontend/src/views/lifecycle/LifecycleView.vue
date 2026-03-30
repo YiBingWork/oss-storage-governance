@@ -21,8 +21,12 @@
         <el-table-column prop="prefix" label="前缀" min-width="250" />
         <el-table-column prop="currentStorageClass" label="当前存储类型" width="130" />
         <el-table-column prop="suggestedStorageClass" label="建议存储类型" width="130" />
-        <el-table-column prop="daysSinceLastAccess" label="未访问天数" width="120" />
-        <el-table-column prop="estimatedMonthlySaving" label="预估月省 (元)" width="130" />
+        <el-table-column label="未访问天数" width="120">
+          <template #default="{ row }"><span class="key-number">{{ row.daysSinceLastAccess }}</span></template>
+        </el-table-column>
+        <el-table-column label="预估月省 (元)" width="130">
+          <template #default="{ row }"><span class="key-number" style="color: #67C23A">+{{ row.estimatedMonthlySaving }}</span></template>
+        </el-table-column>
         <el-table-column prop="status" label="状态" width="100">
           <template #default="{ row }">
             <el-tag :type="statusType(row.status)">{{ statusLabel(row.status) }}</el-tag>

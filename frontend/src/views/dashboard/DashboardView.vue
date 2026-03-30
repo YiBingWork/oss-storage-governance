@@ -6,8 +6,8 @@
         <el-card shadow="hover">
           <div class="card-content">
             <div class="card-label">Bucket 数量</div>
-            <div class="card-value">
-              <el-link type="primary" :underline="false" style="font-size: 22px; font-weight: 700;" @click="showBucketDetails">
+            <div class="card-value key-number">
+              <el-link type="primary" :underline="false" style="font-size: 24px; font-weight: 700; font-family: 'Inter', sans-serif;" @click="showBucketDetails">
                 {{ overview.bucketCount ?? '-' }}
               </el-link>
             </div>
@@ -18,7 +18,7 @@
         <el-card shadow="hover">
           <div class="card-content">
             <div class="card-label">总存储量</div>
-            <div class="card-value color-primary">{{ formatBytes(overview.totalStorageBytes) }}</div>
+            <div class="card-value key-number color-primary">{{ formatBytes(overview.totalStorageBytes) }}</div>
           </div>
         </el-card>
       </el-col>
@@ -26,7 +26,7 @@
         <el-card shadow="hover">
           <div class="card-content">
             <div class="card-label">总对象数</div>
-            <div class="card-value color-primary">{{ formatNumber(overview.totalObjectCount) }}</div>
+            <div class="card-value key-number color-primary">{{ formatNumber(overview.totalObjectCount) }}</div>
           </div>
         </el-card>
       </el-col>
@@ -34,7 +34,7 @@
         <el-card shadow="hover">
           <div class="card-content">
             <div class="card-label">本月费用</div>
-            <div class="card-value color-warning">¥{{ overview.monthCostYuan ?? '-' }}</div>
+            <div class="card-value key-number color-warning">¥{{ overview.monthCostYuan ?? '-' }}</div>
           </div>
         </el-card>
       </el-col>
@@ -47,7 +47,13 @@
                 <el-icon><QuestionFilled /></el-icon>
               </el-tooltip>
             </div>
-            <div class="card-value color-danger">{{ overview.smallFileRatio ?? '-' }}%</div>
+            <div class="card-value key-number color-danger">{{ overview.smallFileRatio ?? '-' }}%</div>
+            <el-progress
+              :percentage="overview.smallFileRatio || 0"
+              :color="getRatioColor(overview.smallFileRatio)"
+              :show-text="false"
+              class="metric-progress"
+            />
           </div>
         </el-card>
       </el-col>
@@ -60,7 +66,13 @@
                 <el-icon><QuestionFilled /></el-icon>
               </el-tooltip>
             </div>
-            <div class="card-value color-danger">{{ overview.junkDataRatio ?? '-' }}%</div>
+            <div class="card-value key-number color-danger">{{ overview.junkDataRatio ?? '-' }}%</div>
+            <el-progress
+              :percentage="overview.junkDataRatio || 0"
+              :color="getRatioColor(overview.junkDataRatio)"
+              :show-text="false"
+              class="metric-progress"
+            />
           </div>
         </el-card>
       </el-col>
@@ -125,6 +137,13 @@ const formatNumber = (num) => {
   return num.toLocaleString()
 }
 
+const getRatioColor = (ratio) => {
+  if (!ratio) return '#909399'
+  if (ratio >= 50) return '#f56c6c' // danger
+  if (ratio >= 20) return '#e6a23c' // warning
+  return '#67c23a' // success
+}
+
 const showBucketDetails = async () => {
   bucketDialogVisible.value = true
   bucketLoading.value = true
@@ -162,7 +181,14 @@ const loadTrend = async () => {
           name: '月度费用',
           type: 'line',
           smooth: true,
-          areaStyle: { opacity: 0.3 },
+          itemStyle: { color: '#3b82f6' },
+          areaStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#3b82f6' },
+              { offset: 1, color: '#2dd4bf' }
+            ]),
+            opacity: 0.5
+          },
           data: data.costs || []
         }]
       })
@@ -185,19 +211,23 @@ onMounted(() => {
 }
 .card-content {
   text-align: center;
+  padding: 8px 0;
 }
 .card-label {
   font-size: 14px;
-  color: #909399;
-  margin-bottom: 8px;
+  color: #64748b;
+  margin-bottom: 16px;
+  font-weight: 500;
 }
 .card-value {
-  font-size: 22px;
-  font-weight: 700;
-  color: #303133;
+  font-size: 28px;
+  color: #1e293b;
+}
+.metric-progress {
+  margin-top: 12px;
 }
 .color-primary {
-  color: #409EFF;
+  color: #3b82f6;
 }
 .color-warning {
   color: #E6A23C;

@@ -20,15 +20,17 @@
       <el-table :data="records" stripe>
         <el-table-column prop="prefix" label="前缀" min-width="250" />
         <el-table-column prop="smallFileCount" label="小文件数" width="120">
-          <template #default="{ row }">{{ row.smallFileCount?.toLocaleString() }}</template>
+          <template #default="{ row }"><span class="key-number">{{ row.smallFileCount?.toLocaleString() }}</span></template>
         </el-table-column>
         <el-table-column label="小文件总大小" width="130">
-          <template #default="{ row }">{{ formatBytes(row.smallFileTotalBytes) }}</template>
+          <template #default="{ row }"><span class="key-number">{{ formatBytes(row.smallFileTotalBytes) }}</span></template>
         </el-table-column>
         <el-table-column label="阈值" width="100">
-          <template #default="{ row }">{{ formatBytes(row.thresholdBytes) }}</template>
+          <template #default="{ row }"><span class="key-number">{{ formatBytes(row.thresholdBytes) }}</span></template>
         </el-table-column>
-        <el-table-column prop="ratio" label="占比 (%)" width="100" />
+        <el-table-column label="占比 (%)" width="100">
+          <template #default="{ row }"><span class="key-number">{{ row.ratio }}</span></template>
+        </el-table-column>
         <el-table-column prop="status" label="状态" width="100">
           <template #default="{ row }">
             <el-tag :type="statusType(row.status)">{{ statusLabel(row.status) }}</el-tag>
